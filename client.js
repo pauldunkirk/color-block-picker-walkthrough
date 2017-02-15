@@ -8,8 +8,22 @@ $(document).ready(function(){
   var newColorBlock = $('<div>'); //make empty div - not added yet
   newColorBlock.css('background-color', colorArray[i]); //color to empty div
   newColorBlock.addClass('colorBlock'); //class to empty div style height/width
+  newColorBlock.data('colorOfBlock', colorArray[i]);
   $('#colorBlockContainer').append(newColorBlock);//put on view and DOM
+
 }
+//step 4 create event listener
+$('#colorBlockContainer').on('click', '.colorBlock', function(){
+  console.log('$(this).data() : ', $(this).data().colorOfBlock);
+  var colorOfBlockSelected = $(this).data().colorOfBlock;
+  if (randomColor == colorOfBlockSelected) {
+    $('#responseSection').text('You got it!!');
+  } else {
+    $('#responseSection').text('Oh no! Try again!');
+  }
+});
+
+
 // step 3 select random color and add it to the dom
 
 var randomNumberSelected = randomNumber(0, colorArray.length - 1); //get random # 0-4
@@ -18,6 +32,11 @@ $('#userColorPrompt').text(randomColor);
 
 });
 
+
+
+
+
+//outside of jquery
 function randomNumber(min, max){
     return Math.floor(Math.random() * (1 + max - min) + min);
 }
